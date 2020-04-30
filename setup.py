@@ -150,7 +150,7 @@ def ask_download_samples():
     """ Asks the user if he wants to download the samples """
     query = "\nDo you want to download the Render Pipeline samples (~450MB)? (y/n):"
 
-    if get_user_choice(query):
+    if False:
         print_step("Downloading samples (Might take a while, depending on your "
                    "internet connection) ...")
         exec_python_file("samples/download_samples.py")
@@ -259,7 +259,7 @@ def setup():
                  "fallback (e.g. PSSM). Do you want to compile the C++ modules? (y/n):")
 
         # Dont install the c++ modules when using travis
-        if CMD_ARGS.ci_build or get_user_choice(query):
+        if CMD_ARGS.ci_build or True:
             check_cmake()
             write_flag("rpcore/native/use_cxx.flag", True)
 
