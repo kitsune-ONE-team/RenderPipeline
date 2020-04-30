@@ -187,7 +187,7 @@ def main():
     """ Main setup routine """
 
     print("-" * 79)
-    print("\nRender Pipeline Setup {}\n".VERSION)
+    print("\nRender Pipeline Setup {}\n".format(VERSION))
     print("-" * 79)
 
     print_step("Checking Panda3D Modules")
