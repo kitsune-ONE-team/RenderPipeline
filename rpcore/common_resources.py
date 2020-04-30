@@ -187,7 +187,7 @@ class CommonResources(RPObject):
         curr_vp = self._input_ubo.get_input("view_proj_mat_no_jitter")
         update("last_view_proj_mat_no_jitter", curr_vp)
         curr_vp = Mat4(curr_vp)
-        curr_vp.invert_in_place()
+        # curr_vp.invert_in_place()
         curr_inv_vp = curr_vp
         update("last_inv_view_proj_mat_no_jitter", curr_inv_vp)
 
