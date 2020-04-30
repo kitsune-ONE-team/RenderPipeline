@@ -38,6 +38,8 @@ import gzip
 import shutil
 import argparse
 
+from setuptools import setup, find_packages
+
 sys.dont_write_bytecode = True
 
 DEVNULL = open(os.path.devnull, "w")
@@ -53,23 +55,6 @@ from rplibs.six.moves import input # pylint: disable=import-error
 from rplibs.colorama import init as init_colorama
 from rplibs.colorama import Fore, Style
 init_colorama()
-
-def parse_cmd_args():
-    """ Parses the command line arguments """
-    parser = argparse.ArgumentParser(description="Render Pipeline Setup")
-    parser.add_argument(
-        "--clean", help="Clean rebuild of the native modules", action="store_true")
-    parser.add_argument(
-        "--verbose", help="Output additional debug information", action="store_true")
-    parser.add_argument(
-        "--skip-update", help="Skip updating the module builder to avoid overriding changes", action="store_true")
-    parser.add_argument(
-        "--skip-native", help="Skip native module compilation", action="store_true")
-    parser.add_argument(
-        "--ci-build", help="Skip setup steps requiring gpu drivers, only for travis ci", action="store_true")
-    return parser.parse_args()
-
-CMD_ARGS = parse_cmd_args()
 
 def color(string, col):
     """ Colors a string """
@@ -89,10 +74,6 @@ def print_step(title):
     print("\n\n[", str(CURRENT_STEP).zfill(2), "] ", color(title, Fore.CYAN + Style.BRIGHT))
 
 def ask_for_troubleshoot(url):
-    if CMD_ARGS.ci_build:
-        print("\nSETUP FAILED!")
-        return
-        
     if not url:
         print("\nSorry, no troubleshooting options are available.\n")
         return
@@ -109,9 +90,10 @@ def exec_python_file(pth, args=None, troubleshoot=None):
     pth = os.path.basename(pth)
     os.chdir(basedir)
     cmd = [sys.executable, "-B", pth] + (args or [])
-    if CMD_ARGS.verbose:
-        print("Executing", ' '.join(cmd))
-        print("CWD is", basedir)
+
+    print("Executing", ' '.join(cmd))
+    print("CWD is", basedir)
+
     try:
         output = subprocess.check_output(cmd, stderr=sys.stderr)
     except subprocess.CalledProcessError as msg:
@@ -123,8 +105,9 @@ def exec_python_file(pth, args=None, troubleshoot=None):
         print("Python script error:", msg)
         ask_for_troubleshoot(troubleshoot)
         error("Error during script execution")
-    if CMD_ARGS.verbose:
-        print(output.decode("utf-8", errors="ignore"))
+
+    print(output.decode("utf-8", errors="ignore"))
+
     os.chdir(SETUP_DIR)
 
 def extract_gz_files(pth):
@@ -145,15 +128,6 @@ def extract_gz_files(pth):
 def check_file_exists(fpath):
     """ Checks if the given file exists """
     return os.path.isfile(os.path.join(SETUP_DIR, fpath))
-
-def ask_download_samples():
-    """ Asks the user if he wants to download the samples """
-    query = "\nDo you want to download the Render Pipeline samples (~450MB)? (y/n):"
-
-    if False:
-        print_step("Downloading samples (Might take a while, depending on your "
-                   "internet connection) ...")
-        exec_python_file("samples/download_samples.py")
 
 def get_user_choice(query):
     """ Asks the user a boolean question """
@@ -208,28 +182,12 @@ def check_panda_version():
               "(you can also build from source).")
         error("Panda3D version outdated")
 
-def check_panda_rplight():
-    """ Checks whether Panda3D provides the rpcore native module. """
-
-    try:
-        from panda3d import _rplight
-        return True
-    except ImportError:
-        pass
-
-    return False
-
-def setup():
+def main():
     """ Main setup routine """
 
     print("-" * 79)
     print("\nRender Pipeline Setup 1.3\n")
     print("-" * 79)
-
-
-    if CMD_ARGS.ci_build:
-        print()
-        print(color("Running CI setup without steps requiring a GPU", Fore.BLUE + Style.BRIGHT))
 
     print_step("Checking Panda3D Modules")
     # Make sure this python build is using Panda3D
@@ -243,70 +201,66 @@ def setup():
 
     check_panda_version()
 
-    if not CMD_ARGS.ci_build:
-        print_step("Checking requirements ..")
-        exec_python_file("data/setup/check_requirements.py",
-            troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#requirements-check")
+    print_step("Checking requirements ..")
+    exec_python_file("data/setup/check_requirements.py",
+        troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#requirements-check")
 
-    if check_panda_rplight():
-        write_flag("rpcore/native/use_cxx.flag", True)
-
-    elif not CMD_ARGS.skip_native:
-        query = ("The C++ modules of the pipeline are faster and produce better \n"
-                 "results, but we will have to compile them. As alternative, \n"
-                 "a Python fallback is used, which is slower and produces worse \n"
-                 "results. Also some plugins only partially work with the python \n"
-                 "fallback (e.g. PSSM). Do you want to compile the C++ modules? (y/n):")
-
-        # Dont install the c++ modules when using travis
-        if CMD_ARGS.ci_build or True:
-            check_cmake()
-            write_flag("rpcore/native/use_cxx.flag", True)
-
-            if not CMD_ARGS.skip_update:
-                print_step("Downloading the module builder ...")
-                exec_python_file("rpcore/native/update_module_builder.py",
-                    troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#downloading-module-builder")
-
-            print_step("Building the native code .. (This might take a while!)")
-            exec_python_file("rpcore/native/build.py", ["--clean"] if CMD_ARGS.clean else [],
-                troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#building-the-native-code")
-
-        else:
-            write_flag("rpcore/native/use_cxx.flag", False)
+    write_flag("rpcore/native/use_cxx.flag", True)
 
     print_step("Generating .txo files ...")
     exec_python_file("data/generate_txo_files.py",
         troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#extracting-txo-files")
 
-    if not CMD_ARGS.ci_build:
-        print_step("Filtering default cubemap ..")
-        exec_python_file("data/default_cubemap/filter.py",
-            troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#filtering-default-cubemap")
+    print_step("Filtering default cubemap ..")
+    exec_python_file("data/default_cubemap/filter.py",
+        troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#filtering-default-cubemap")
 
-        print_step("Precomputing film grain .. ")
-        exec_python_file("data/film_grain/generate.py",
-            troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#precomputing-film-grain")
+    print_step("Precomputing film grain .. ")
+    exec_python_file("data/film_grain/generate.py",
+        troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#precomputing-film-grain")
 
     print_step("Running shader scripts .. ")
     exec_python_file("rpplugins/env_probes/shader/generate_mip_shaders.py",
         troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#running-shader-scripts")
 
-
-    if not CMD_ARGS.ci_build:
-        print_step("Precomputing clouds ..")
-        exec_python_file("rpplugins/clouds/resources/precompute.py",
-            troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#precomputing-clouds")
+    print_step("Precomputing clouds ..")
+    exec_python_file("rpplugins/clouds/resources/precompute.py",
+        troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#precomputing-clouds")
 
     write_flag("data/install.flag", True)
 
     # -- Further setup code follows here --
-
     print(color("\n\n-- Setup finished sucessfully! --", Fore.GREEN + Style.BRIGHT))
-
-    if not CMD_ARGS.ci_build:
-        ask_download_samples()
 
 
 if __name__ == "__main__":
-    setup()
+    main()
+
+    packages = find_packages()
+    packages.remove('rpcore.native')
+    packages.remove('rpcore.pynative')
+    packages += [
+        'config',
+        'data',
+        'effects',
+    ]
+
+    setup(
+        name='render_pipeline',
+        version='1.3.0',
+        description='RenderPipeline',
+        long_description='RenderPipeline',
+        url='https://github.com/tobspr/RenderPipeline/wiki',
+        download_url='https://github.com/tobspr/RenderPipeline',
+        author='tobspr',
+        license='MIT',
+        packages=packages,
+        include_package_data=True,
+        entry_points={
+            'console_scripts': (
+                'material_editor=toolkit.material_editor.main',
+                'plugin_configurator=toolkit.plugin_configurator.main',
+                'day_time_editor=toolkit.day_time_editor.main',
+            ),
+        },
+    )
