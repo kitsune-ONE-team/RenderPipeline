@@ -42,7 +42,7 @@ from setuptools import setup, find_packages
 
 sys.dont_write_bytecode = True
 
-VERSION = '1.3.0'
+VERSION = '1.3.1'
 DEVNULL = open(os.path.devnull, "w")
 SETUP_DIR = os.path.dirname(os.path.realpath(__file__))
 CURRENT_STEP = 0
@@ -256,6 +256,9 @@ if __name__ == "__main__":
         license='MIT',
         packages=packages,
         include_package_data=True,
+        install_requires=[
+            'panda3d',
+        ],
         entry_points={
             'console_scripts': (
                 'material_editor=toolkit.material_editor.main:main',
