@@ -42,6 +42,7 @@ from setuptools import setup, find_packages
 
 sys.dont_write_bytecode = True
 
+VERSION = '1.3.0'
 DEVNULL = open(os.path.devnull, "w")
 SETUP_DIR = os.path.dirname(os.path.realpath(__file__))
 CURRENT_STEP = 0
@@ -186,7 +187,7 @@ def main():
     """ Main setup routine """
 
     print("-" * 79)
-    print("\nRender Pipeline Setup 1.3\n")
+    print("\nRender Pipeline Setup {}\n".VERSION)
     print("-" * 79)
 
     print_step("Checking Panda3D Modules")
@@ -246,7 +247,7 @@ if __name__ == "__main__":
 
     setup(
         name='render_pipeline',
-        version='1.3.0',
+        version=VERSION,
         description='RenderPipeline',
         long_description='RenderPipeline',
         url='https://github.com/tobspr/RenderPipeline/wiki',
