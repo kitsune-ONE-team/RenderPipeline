@@ -237,7 +237,6 @@ if __name__ == "__main__":
     main()
 
     packages = find_packages()
-    packages.remove('rpcore.native')
     packages.remove('rpcore.pynative')
     packages += [
         'config',
@@ -258,9 +257,9 @@ if __name__ == "__main__":
         include_package_data=True,
         entry_points={
             'console_scripts': (
-                'material_editor=toolkit.material_editor.main',
-                'plugin_configurator=toolkit.plugin_configurator.main',
-                'day_time_editor=toolkit.day_time_editor.main',
+                'material_editor=toolkit.material_editor.main:main',
+                'plugin_configurator=toolkit.plugin_configurator.main:main',
+                'day_time_editor=toolkit.day_time_editor.main:main',
             ),
         },
     )

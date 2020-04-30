@@ -14,5 +14,4 @@ recursive-include rpplugins *.glsl
 recursive-include rpplugins *.png
 recursive-include rpplugins *.txo.pz
 recursive-include rpplugins *.yaml
-recursive-exclude rpcore/native *
 recursive-exclude rpcore/pynative *
