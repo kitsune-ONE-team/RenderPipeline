@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     setup(
         name='render_pipeline',
-        version='1.3.3',
+        version='1.3.4',
         description='RenderPipeline',
         long_description=(
             'Physically Based Shading and Deferred Rendering '
