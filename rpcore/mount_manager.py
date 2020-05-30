@@ -167,7 +167,10 @@ class MountManager(RPObject):
         """ Attempts to find the pipeline base path by looking at the location
         of this file """
         pth = os.path.abspath(join(os.path.dirname(os.path.realpath(__file__)), ".."))
-        return Filename.from_os_specific(pth).get_fullpath()
+        filename = Filename.from_os_specific(pth)
+        # convert lib/site-packages to Lib/site-packages on windows
+        filename.make_true_case()
+        return filename.get_fullpath()
 
     def _is_pid_running(self, pid):
         """ Checks if a pid is still running """
