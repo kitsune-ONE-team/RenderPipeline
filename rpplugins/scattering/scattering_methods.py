@@ -64,7 +64,7 @@ class ScatteringMethodHosekWilkie(ScatteringMethod):
     def load(self):
         """ Loads the scattering method """
         lut_src = self.handle.get_resource(
-            "hosek_wilkie_scattering/scattering_lut.txo")
+            "hosek_wilkie_scattering/scattering_lut.txo.pz")
 
         if not isfile(lut_src):
             self.error("Could not find precompiled LUT for the Hosek Wilkie "

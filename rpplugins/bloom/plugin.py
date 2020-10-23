@@ -44,5 +44,5 @@ class Plugin(BasePlugin):
         self._bloom_stage.remove_fireflies = self.get_setting("remove_fireflies")
 
     def on_pipeline_created(self):
-        dirt_tex = RPLoader.load_texture(self.get_resource("lens_dirt.txo"))
+        dirt_tex = RPLoader.load_texture(self.get_resource("lens_dirt.txo.pz"))
         self._bloom_stage.set_shader_input("LensDirtTex", dirt_tex)

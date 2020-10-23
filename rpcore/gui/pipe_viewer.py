@@ -31,6 +31,7 @@ from panda3d.core import Texture, Vec3
 from direct.gui.DirectScrolledFrame import DirectScrolledFrame
 from direct.gui.DirectFrame import DirectFrame
 
+from rpcore.loader import RPLoader
 from rpcore.globals import Globals
 from rpcore.util.generic import rgb_from_string
 from rpcore.util.display_shader_builder import DisplayShaderBuilder

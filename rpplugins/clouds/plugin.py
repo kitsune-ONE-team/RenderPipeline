@@ -51,7 +51,7 @@ class Plugin(BasePlugin):
 
     def on_pipeline_created(self):
         # High-res noise
-        noise1 = RPLoader.load_texture(self.get_resource("noise1-data.txo"))
+        noise1 = RPLoader.load_texture(self.get_resource("noise1-data.txo.pz"))
         noise1.set_wrap_u(SamplerState.WM_repeat)
         noise1.set_wrap_v(SamplerState.WM_repeat)
         noise1.set_wrap_w(SamplerState.WM_repeat)
@@ -59,7 +59,7 @@ class Plugin(BasePlugin):
         self.apply_stage.set_shader_input("Noise1", noise1)
 
         # Low-res noise
-        noise2 = RPLoader.load_texture(self.get_resource("noise2-data.txo"))
+        noise2 = RPLoader.load_texture(self.get_resource("noise2-data.txo.pz"))
         noise2.set_wrap_u(SamplerState.WM_repeat)
         noise2.set_wrap_v(SamplerState.WM_repeat)
         noise2.set_wrap_w(SamplerState.WM_repeat)

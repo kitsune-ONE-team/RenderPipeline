@@ -126,7 +126,7 @@ class CommonResources(RPObject):
         """ Loads the default cubemap used for the environment, which is used
         when no other environment data is available """
         envmap = RPLoader.load_cube_map(
-            "/$$rp/rpcore/data/default_cubemap/cubemap.txo", read_mipmaps=True)
+            "/$$rp/rpcore/data/default_cubemap/cubemap.txo.pz", read_mipmaps=True)
         envmap.set_minfilter(SamplerState.FT_linear_mipmap_linear)
         # envmap.set_format(Image.F_rgba16)
         envmap.set_magfilter(SamplerState.FT_linear)
@@ -159,7 +159,7 @@ class CommonResources(RPObject):
 
     def _load_skydome(self):
         """ Loads the skydome """
-        skydome = RPLoader.load_texture("/$$rp/rpcore/data/builtin_models/skybox/skybox.txo")
+        skydome = RPLoader.load_texture("/$$rp/rpcore/data/builtin_models/skybox/skybox.txo.pz")
         skydome.set_wrap_u(SamplerState.WM_clamp)
         skydome.set_wrap_v(SamplerState.WM_clamp)
         self._pipeline.stage_mgr.inputs["DefaultSkydome"] = skydome

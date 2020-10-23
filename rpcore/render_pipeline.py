@@ -86,7 +86,7 @@ class RenderPipeline(RPObject):
         self._applied_effects = []
         self._pre_showbase_initialized = False
         self._first_frame = None
-        self.set_loading_screen_image("/$$rp/rpcore/data/gui/loading_screen_bg.txo")
+        self.set_loading_screen_image("/$$rp/rpcore/data/gui/loading_screen_bg.txo.pz")
 
     def load_settings(self, path):
         """ Loads the pipeline configuration from a given filename. Usually
