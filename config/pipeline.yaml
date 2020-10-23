@@ -30,6 +30,8 @@ pipeline:
     # grading and so on. This is used by the pathtracing reference.
     reference_mode: false
 
+    loader_class: rpcore.default_loader.RPLoader
+
     # native_module: rpcore.pynative
     native_module: panda3d._rplight
     # native_module: rpnative.rplight
