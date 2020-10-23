@@ -30,6 +30,10 @@ pipeline:
     # grading and so on. This is used by the pathtracing reference.
     reference_mode: false
 
+    # native_module: rpcore.pynative
+    native_module: panda3d._rplight
+    # native_module: rpnative.rplight
+
 # This are the settings affecting the lighting part of the pipeline,
 # including builtin shadows and lights.
 lighting:
