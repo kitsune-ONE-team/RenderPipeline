@@ -92,7 +92,7 @@ class IESProfileLoader(RPObject):
         used index which can be assigned to a light."""
 
         # Make sure the user can load profiles directly from the ies profile folder
-        data_path = join("/$$rp/data/ies_profiles/", filename)
+        data_path = join("/$$rp/rpcore/data/ies_profiles/", filename)
         if isfile(data_path):
             filename = data_path
 

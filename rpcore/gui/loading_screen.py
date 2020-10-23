@@ -38,7 +38,7 @@ class LoadingScreen(RPObject):
     the ability to display a simple image during loading. The image should be
     in the format 16:9 and not too small, to avoid being blurred out. """
 
-    def __init__(self, pipeline, image_source="/$$rp/data/gui/loading_screen_bg.txo"):
+    def __init__(self, pipeline, image_source="/$$rp/rpcore/data/gui/loading_screen_bg.txo"):
         """ Inits the loading screen with a given image source. By default,
         this is the pipeline loading screen, but it can be overridden. """
         RPObject.__init__(self)

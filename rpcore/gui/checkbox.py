@@ -45,12 +45,12 @@ class Checkbox(RPObject):
 
         if enabled:
             checked_img = RPLoader.load_texture(
-                "/$$rp/data/gui/" + prefix + "_checked.png")
+                "/$$rp/rpcore/data/gui/" + prefix + "_checked.png")
             unchecked_img = RPLoader.load_texture(
-                "/$$rp/data/gui/" + prefix + "_default.png")
+                "/$$rp/rpcore/data/gui/" + prefix + "_default.png")
         else:
             checked_img = RPLoader.load_texture(
-                "/$$rp/data/gui/" + prefix + "_disabled.png")
+                "/$$rp/rpcore/data/gui/" + prefix + "_disabled.png")
             unchecked_img = checked_img
 
         # Set near filter, otherwise textures look like crap

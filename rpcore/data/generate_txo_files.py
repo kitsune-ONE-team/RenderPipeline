@@ -15,15 +15,15 @@ load_prc_file_data("", "notify-level-pnmimage error")
 load_prc_file_data("", "textures-power-2 none")
 
 files_to_convert = [
-    "data/gui/loading_screen_bg.png",
+    "rpcore/data/gui/loading_screen_bg.png",
     "rpplugins/bloom/resources/lens_dirt.png",
-    "data/builtin_models/skybox/skybox.jpg"
+    "rpcore/data/builtin_models/skybox/skybox.jpg"
 ]
 
 this_dir = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_dir)
 
-pipeline_dir = "../"
+pipeline_dir = "../.."
 
 import direct.directbase.DirectStart
 

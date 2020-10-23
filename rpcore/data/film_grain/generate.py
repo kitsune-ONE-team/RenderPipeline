@@ -31,8 +31,8 @@ curr_dir = os.path.dirname(os.path.realpath(__file__))
 os.chdir(curr_dir)
 
 import sys
-sys.path.insert(0, "../../rpcore")
-sys.path.insert(0, "../../")
+sys.path.insert(0, "../../../rpcore")
+sys.path.insert(0, "../../..")
 
 from panda3d.core import load_prc_file_data, NodePath, Shader, Texture, ShaderAttrib
 from panda3d.core import PNMImage

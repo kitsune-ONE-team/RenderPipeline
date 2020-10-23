@@ -108,7 +108,7 @@ class DraggableWindow(RPObject):
             relief=DGG.FLAT, pressEffect=1, pos=(self._width - 22, 1, -12),
             frameColor=(1.0, 0.2, 0.2, 0.5), parent=self._node,
             scale=(45 / 2, 1, 24 / 2),
-            image="/$$rp/data/gui/close_window.png")
+            image="/$$rp/rpcore/data/gui/close_window.png")
 
         # Init bindings
         self._btn_close.set_transparency(TransparencyAttrib.M_alpha)
@@ -129,11 +129,11 @@ class DraggableWindow(RPObject):
 
     def _on_close_btn_hover(self, evt=None):  # pylint: disable=unused-argument
         """ Internal method when the close button got hovered """
-        self._btn_close["image"] = "/$$rp/data/gui/close_window_hover.png"
+        self._btn_close["image"] = "/$$rp/rpcore/data/gui/close_window_hover.png"
 
     def _on_close_btn_out(self, evt=None):  # pylint: disable=unused-argument
         """ Internal method when the close button is no longer hovered """
-        self._btn_close["image"] = "/$$rp/data/gui/close_window.png"
+        self._btn_close["image"] = "/$$rp/rpcore/data/gui/close_window.png"
 
     def _request_close(self, evt=None):  # pylint: disable=unused-argument
         """ This method gets called when the close button gets clicked """

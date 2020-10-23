@@ -78,7 +78,7 @@ class Plugin(BasePlugin):
     def load_grain(self):
         """ Loads the precomputed film grain """
         grain_tex = RPLoader.load_texture(
-            "/$$rp/data/film_grain/grain.txo")
+            "/$$rp/rpcore/data/film_grain/grain.txo")
         grain_tex.set_minfilter(SamplerState.FT_linear)
         grain_tex.set_magfilter(SamplerState.FT_linear)
         grain_tex.set_wrap_u(SamplerState.WM_repeat)

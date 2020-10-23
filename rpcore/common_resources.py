@@ -54,7 +54,7 @@ class CommonResources(RPObject):
     def _load_fonts(self):
         """ Loads the default font used for rendering and assigns it to
         Globals.font for further usage """
-        font = RPLoader.load_font("/$$rp/data/font/Roboto-Medium.ttf")
+        font = RPLoader.load_font("/$$rp/rpcore/data/font/Roboto-Medium.ttf")
         font.set_pixels_per_unit(35)
         font.set_poly_margin(0.0)
         font.set_texture_margin(1)
@@ -126,7 +126,7 @@ class CommonResources(RPObject):
         """ Loads the default cubemap used for the environment, which is used
         when no other environment data is available """
         envmap = RPLoader.load_cube_map(
-            "/$$rp/data/default_cubemap/cubemap.txo", read_mipmaps=True)
+            "/$$rp/rpcore/data/default_cubemap/cubemap.txo", read_mipmaps=True)
         envmap.set_minfilter(SamplerState.FT_linear_mipmap_linear)
         # envmap.set_format(Image.F_rgba16)
         envmap.set_magfilter(SamplerState.FT_linear)
@@ -148,7 +148,7 @@ class CommonResources(RPObject):
             if "#" in config["src"]:
                 loader_method = RPLoader.load_3d_texture
 
-            brdf_tex = loader_method("/$$rp/data/environment_brdf/{}".format(config["src"]))
+            brdf_tex = loader_method("/$$rp/rpcore/data/environment_brdf/{}".format(config["src"]))
             brdf_tex.set_minfilter(SamplerState.FT_linear)
             brdf_tex.set_magfilter(SamplerState.FT_linear)
             brdf_tex.set_wrap_u(SamplerState.WM_clamp)
@@ -159,13 +159,13 @@ class CommonResources(RPObject):
 
     def _load_skydome(self):
         """ Loads the skydome """
-        skydome = RPLoader.load_texture("/$$rp/data/builtin_models/skybox/skybox.txo")
+        skydome = RPLoader.load_texture("/$$rp/rpcore/data/builtin_models/skybox/skybox.txo")
         skydome.set_wrap_u(SamplerState.WM_clamp)
         skydome.set_wrap_v(SamplerState.WM_clamp)
         self._pipeline.stage_mgr.inputs["DefaultSkydome"] = skydome
 
     def load_default_skybox(self):
-        skybox = RPLoader.load_model("/$$rp/data/builtin_models/skybox/skybox.bam")
+        skybox = RPLoader.load_model("/$$rp/rpcore/data/builtin_models/skybox/skybox.bam")
         return skybox
 
     def update(self):

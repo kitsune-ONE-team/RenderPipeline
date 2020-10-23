@@ -235,7 +235,7 @@ def setup(CMD_ARGS):
 
     if not CMD_ARGS.ci_build:
         print_step("Checking requirements ..")
-        exec_python_file(CMD_ARGS, "data/setup/check_requirements.py",
+        exec_python_file(CMD_ARGS, "rpcore/data/setup/check_requirements.py",
             troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#requirements-check")
 
     if not CMD_ARGS.ci_build and not CMD_ARGS.skip_native:
@@ -245,16 +245,16 @@ def setup(CMD_ARGS):
                         troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#building-the-native-code")
 
     print_step("Generating .txo files ...")
-    exec_python_file(CMD_ARGS, "data/generate_txo_files.py",
+    exec_python_file(CMD_ARGS, "rpcore/data/generate_txo_files.py",
         troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#extracting-txo-files")
 
     if not CMD_ARGS.ci_build:
         print_step("Filtering default cubemap ..")
-        exec_python_file(CMD_ARGS, "data/default_cubemap/filter.py",
+        exec_python_file(CMD_ARGS, "rpcore/data/default_cubemap/filter.py",
             troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#filtering-default-cubemap")
 
         print_step("Precomputing film grain .. ")
-        exec_python_file(CMD_ARGS, "data/film_grain/generate.py",
+        exec_python_file(CMD_ARGS, "rpcore/data/film_grain/generate.py",
             troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#precomputing-film-grain")
 
     print_step("Running shader scripts .. ")

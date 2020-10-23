@@ -26,7 +26,7 @@ rp_ignores = [
     "default_cubemap/source_2",
     "default_cubemap/filter.compute.glsl",
     "default_cubemap/filter.py",
-    "data/generate_txo_files.py",
+    "rpcore/data/generate_txo_files.py",
     "README.md",
     "environment_brdf/generate_reference.py",
     "run_mitsuba.bat",

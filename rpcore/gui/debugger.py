@@ -90,7 +90,7 @@ class Debugger(RPObject):
         self.create_hints()
 
         self.pipeline_logo = Sprite(
-            image="/$$rp/data/gui/pipeline_logo_text.png", x=30, y=30,
+            image="/$$rp/rpcore/data/gui/pipeline_logo_text.png", x=30, y=30,
             parent=self.fullscreen_node)
 
         if self.advanced_info:
@@ -136,7 +136,7 @@ class Debugger(RPObject):
     def create_hints(self):
         """ Creates the hints like keybindings and when reloading shaders """
         self.hint_reloading = Sprite(
-            image="/$$rp/data/gui/shader_reload_hint.png",
+            image="/$$rp/rpcore/data/gui/shader_reload_hint.png",
             parent=self.fullscreen_node)
         self.set_reload_hint_visible(False)
 
@@ -144,7 +144,7 @@ class Debugger(RPObject):
         if not NATIVE_CXX_LOADED:
             # Warning when using the python version
             self.python_warning = Sprite(
-                image="/$$rp/data/gui/python_warning.png",
+                image="/$$rp/rpcore/data/gui/python_warning.png",
                 parent=self.fullscreen_node)
             Sequence(
                 self.python_warning.color_scale_interval(
@@ -155,7 +155,7 @@ class Debugger(RPObject):
 
         # Keybinding hints
         self.keybinding_instructions = Sprite(
-            image="/$$rp/data/gui/keybindings.png",
+            image="/$$rp/rpcore/data/gui/keybindings.png",
             parent=self.fullscreen_node, any_filter=False)
 
     def set_reload_hint_visible(self, flag):

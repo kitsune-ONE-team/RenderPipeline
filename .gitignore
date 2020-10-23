@@ -21,8 +21,8 @@ mitsuba.*.log
 # --- Ignored folders and patterns ---
 temp/
 models/
-data/film_grain/*.png
-data/default_cubemap/filtered/
+rpcore/data/film_grain/*.png
+rpcore/data/default_cubemap/filtered/
 _DEV
 toolkit/pathtracing_reference/mitsuba/
 toolkit/pathtracing_reference/scene*.png
@@ -38,9 +38,9 @@ TODO.txt
 desktop.ini
 scattering_lut.png
 old/
-data/gui/loading_screen
-data/environment_brdf/scene.png
-data/environment_brdf/res/scene.png
+rpcore/data/gui/loading_screen
+rpcore/data/environment_brdf/scene.png
+rpcore/data/environment_brdf/res/scene.png
 toolkit/pathtracing_reference/batch_compare/
 toolkit/pathtracing_reference/difference.png
 toolkit/pathtracing_reference/res/Scene.blend

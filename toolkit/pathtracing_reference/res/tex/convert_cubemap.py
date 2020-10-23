@@ -9,7 +9,7 @@ load_prc_file_data("", "textures-power-2 none")
 
 import direct.directbase.DirectStart  # noqa
 
-cubemap = loader.load_cube_map("../../../../data/default_cubemap/source/#.jpg")
+cubemap = loader.load_cube_map("../../../../rpcore/data/default_cubemap/source/#.jpg")
 w, h = 4096, 2048
 
 cshader = Shader.make_compute(Shader.SL_GLSL, """
