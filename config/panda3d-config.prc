@@ -108,7 +108,7 @@ gl-version 4 3
 
 # Animations on the gpu. The default shader has to get adjusted to support this
 # feature before this option can be turned on.
-# hardware-animated-vertices #t
+hardware-animated-vertices #t
 
 # Try this options for performance
 # uniquify-matrix #t
@@ -138,8 +138,8 @@ gl-force-no-scissor #t
 gl-enable-memory-barriers #f
 
 # Disable threading
-lock-to-one-cpu #t
-support-threads #f
+lock-to-one-cpu #f
+support-threads #t
 
 # Let the driver generate the mipmaps
 driver-generate-mipmaps #t
@@ -170,5 +170,4 @@ screenshot-extension png
 always-store-prev-transform #t
 allow-incomplete-render #t
 
-
-no-singular-invert #f
+no-singular-invert #t
