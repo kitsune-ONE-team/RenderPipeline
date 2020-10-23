@@ -62,7 +62,7 @@ class StageManager(RPObject):
     def _load_stage_order(self):
         """ Loads the order of all stages from the stages.yaml configuration
         file """
-        orders = load_yaml_file("/$$rpconfig/stages.yaml")
+        orders = load_yaml_file("/$$rp/config/stages.yaml")
         if "global_stage_order" not in orders:
             self.error("Could not load stage order, root key does not exist!")
             return

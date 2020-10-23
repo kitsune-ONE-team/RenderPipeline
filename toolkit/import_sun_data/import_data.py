@@ -103,6 +103,6 @@ if __name__ == "__main__":
     settings["sun_altitude"].curves[0].control_points = data_points_altitude
     settings["sun_intensity"].curves[0].control_points = data_points_intensity
 
-    plugin_mgr.save_daytime_overrides("/$$rpconfig/daytime.yaml")
+    plugin_mgr.save_daytime_overrides("/$$rp/config/daytime.yaml")
 
     print("Done!")

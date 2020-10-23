@@ -44,7 +44,7 @@ class TaskScheduler(RPObject):
 
     def _load_config(self):
         """ Loads the tasks distribution configuration """
-        config = load_yaml_file("/$$rpconfig/task-scheduler.yaml")["frame_cycles"]
+        config = load_yaml_file("/$$rp/config/task-scheduler.yaml")["frame_cycles"]
         for frame_name, tasks in config:  # pylint: disable=unused-variable
             self._tasks.append(tasks)
 

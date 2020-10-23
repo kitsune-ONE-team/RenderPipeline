@@ -61,7 +61,7 @@ class RenderModeSelector(DraggableWindow):
 
         # Reload config each time the window is opened so its easy to add new
         # render modes
-        config = load_yaml_file("/$$rpconfig/debugging.yaml")
+        config = load_yaml_file("/$$rp/config/debugging.yaml")
 
         debugger_content = self._content_node.attach_new_node("RenderModes")
         debugger_content.set_z(-20)

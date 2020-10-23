@@ -136,9 +136,9 @@ class RenderPipeline(RPObject):
 
         if not self.settings:
             self.debug("No settings loaded, loading from default location")
-            self.load_settings("/$$rpconfig/pipeline.yaml")
+            self.load_settings("/$$rp/config/pipeline.yaml")
 
-        load_prc_file("/$$rpconfig/panda3d-config.prc")
+        load_prc_file("/$$rp/config/panda3d-config.prc")
         self._pre_showbase_initialized = True
 
     def create(self, base=None):

@@ -116,7 +116,7 @@ class DayTimeEditor(QMainWindow, Ui_MainWindow):
                         NetworkCommunication.DAYTIME_PORT, "settime " + str(self._current_time))
                     continue
                 elif cmd == "write_settings":
-                    self._plugin_mgr.save_daytime_overrides("/$$rpconfig/daytime.yaml")
+                    self._plugin_mgr.save_daytime_overrides("/$$rp/config/daytime.yaml")
                     NetworkCommunication.send_async(
                         NetworkCommunication.DAYTIME_PORT, "loadconf")
                 else:

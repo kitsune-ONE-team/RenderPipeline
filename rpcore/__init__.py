@@ -26,6 +26,15 @@ THE SOFTWARE.
 
 # flake8: noqa
 
+import os
+
+from panda3d.core import VirtualFileSystem
+
+base_path = os.path.dirname(os.path.dirname(__file__))
+vfs = VirtualFileSystem.get_global_ptr()
+if not vfs.exists('/$$rp'):
+    vfs.mount(base_path, '/$$rp', 0)
+
 __all__ = ("RenderPipeline", "SpotLight", "PointLight")
 
 # This file includes all classes from the pipeline which are exposed

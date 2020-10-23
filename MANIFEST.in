@@ -1,5 +1,6 @@
 recursive-include config *.prc
 recursive-include config *.yaml
+recursive-include effects *.yaml
 recursive-include rpcore/data *.bam
 recursive-include rpcore/data *.ies
 recursive-include rpcore/data *.jpg
@@ -7,13 +8,12 @@ recursive-include rpcore/data *.png
 recursive-include rpcore/data *.ttf
 recursive-include rpcore/data *.txo.pz
 recursive-include rpcore/data *.xml
-recursive-include effects *.yaml
-recursive-include rpcore/shader *.glsl
 recursive-include rpplugins *.ffxml
 recursive-include rpplugins *.glsl
 recursive-include rpplugins *.png
 recursive-include rpplugins *.txo.pz
 recursive-include rpplugins *.yaml
+recursive-include shader *.glsl
 recursive-include toolkit *.bam
 recursive-include toolkit *.glsl
 recursive-include toolkit *.ini

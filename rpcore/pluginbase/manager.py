@@ -62,10 +62,10 @@ class PluginManager(RPObject):
         of the main plugin classes for all enabled plugins """
         self.debug("Loading plugin settings")
         self.load_base_settings("/$$rp/rpplugins")
-        self.load_setting_overrides("/$$rpconfig/plugins.yaml")
+        self.load_setting_overrides("/$$rp/config/plugins.yaml")
 
         if self.requires_daytime_settings:
-            self.load_daytime_overrides("/$$rpconfig/daytime.yaml")
+            self.load_daytime_overrides("/$$rp/config/daytime.yaml")
 
         self.debug("Creating plugin instances ..")
         for plugin_id in self.settings:

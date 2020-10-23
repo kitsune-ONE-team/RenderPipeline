@@ -118,7 +118,7 @@ class NetworkCommunication(RPObject):
             self._pipeline.daytime_mgr.time = daytime
         elif cmd.startswith("loadconf"):
             self._pipeline.plugin_mgr.load_daytime_overrides(
-                "/$$rpconfig/daytime.yaml")
+                "/$$rp/config/daytime.yaml")
         else:
             self.warn("Recieved unkown daytime command:", cmd)
 

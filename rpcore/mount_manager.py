@@ -52,7 +52,6 @@ class MountManager(RPObject):
         self._write_path = None
         self._mounted = False
         self._do_cleanup = True
-        self._config_dir = None
 
         self.debug("Auto-Detected base path to", self._base_path)
         atexit.register(self._on_exit_cleanup)
@@ -94,31 +93,6 @@ class MountManager(RPObject):
         is usually the root of the rendering pipeline folder """
         self.debug("Set base path to '" + pth + "'")
         self._base_path = Filename.from_os_specific(pth).get_fullpath()
-
-    @property
-    def config_dir(self):
-        """ Returns the config directory previously set with set_config_dir, or
-        None if no directory was set yet """
-
-    @config_dir.setter
-    def config_dir(self, pth):
-        """ Sets the path to the config directory. Usually this is the config/
-        directory located in the pipeline root directory. However, if you want
-        to load your own configuration files, you can specify a custom config
-        directory here. Your configuration directory should contain the
-        pipeline.yaml, plugins.yaml, daytime.yaml and configuration.prc.
-
-        It is highly recommended you use the pipeline provided config files, modify
-        them to your needs, and as soon as you think they are in a final version,
-        copy them over. Please also notice that you should keep your config files
-        up-to-date, e.g. when new configuration variables are added.
-
-        Also, specifying a custom configuration_dir disables the functionality
-        of the PluginConfigurator and DayTime editor, since they operate on the
-        pipelines default config files.
-
-        Set the directory to None to use the default directory. """
-        self._config_dir = Filename.from_os_specific(pth).get_fullpath()
 
     @property
     def do_cleanup(self):
@@ -167,7 +141,10 @@ class MountManager(RPObject):
         """ Attempts to find the pipeline base path by looking at the location
         of this file """
         pth = os.path.abspath(join(os.path.dirname(os.path.realpath(__file__)), ".."))
-        return Filename.from_os_specific(pth).get_fullpath()
+        filename = Filename.from_os_specific(pth)
+        # convert lib/site-packages to Lib/site-packages on windows
+        filename.make_true_case()
+        return filename.get_fullpath()
 
     def _is_pid_running(self, pid):
         """ Checks if a pid is still running """
@@ -253,20 +230,16 @@ class MountManager(RPObject):
         structure, from which all files can be located:
 
         /$$rp/  (Mounted from the render pipeline base directory)
+           + config/
+           + data/
            + rpcore/
            + shader/
-           + ...
-
-        /$rpconfig/ (Mounted from config/, may be set by user)
-           + pipeline.yaml
            + ...
 
         /$$rptemp/ (Either ramdisk or user specified)
             + day_time_config
             + shader_auto_config
             + ...
-
-        /$$rpshader/ (Link to /$$rp/rpcore/shader)
 
          """
         self.debug("Setting up virtual filesystem")
@@ -275,20 +248,6 @@ class MountManager(RPObject):
         def convert_path(pth):
             return Filename.from_os_specific(pth).get_fullpath()
         vfs = VirtualFileSystem.get_global_ptr()
-
-        # Mount config dir as $$rpconf
-        if self._config_dir is None:
-            config_dir = convert_path(join(self._base_path, "config/"))
-            self.debug("Mounting auto-detected config dir:", config_dir)
-            vfs.mount(config_dir, "/$$rpconfig", 0)
-        else:
-            self.debug("Mounting custom config dir:", self._config_dir)
-            vfs.mount(convert_path(self._config_dir), "/$$rpconfig", 0)
-
-        # Mount directory structure
-        vfs.mount(convert_path(self._base_path), "/$$rp", 0)
-        vfs.mount(convert_path(join(self._base_path, "rpcore/shader")), "/$$rp/shader", 0)
-        vfs.mount(convert_path(join(self._base_path, "effects")), "effects", 0)
 
         # Mount the pipeline temp path:
         # If no write path is specified, use a virtual ramdisk

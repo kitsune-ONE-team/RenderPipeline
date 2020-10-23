@@ -130,7 +130,7 @@ class RenderStage(RPObject):
         path_args = []
 
         for source in args:
-            for prefix in ("/$$rpconfig", "/$$rp/shader", "/$$rptemp"):
+            for prefix in ("/$$rp/config", "/$$rp/shader", "/$$rptemp"):
                 if prefix in source:
                     path_args.append(source)
                     break
