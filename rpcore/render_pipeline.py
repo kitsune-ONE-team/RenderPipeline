@@ -138,9 +138,6 @@ class RenderPipeline(RPObject):
             self.debug("No settings loaded, loading from default location")
             self.load_settings("/$$rpconfig/pipeline.yaml")
 
-        if not isfile("/$$rp/data/install.flag"):
-            self.fatal("You didn't setup the pipeline yet! Please run setup.py.")
-
         load_prc_file("/$$rpconfig/panda3d-config.prc")
         self._pre_showbase_initialized = True
 

@@ -58,3 +58,8 @@ toolkit/bake_gi/resources/*.blend
 toolkit/bake_gi/scene
 
 .vscode
+
+rpnative/build/
+build/
+dist/
+*.egg-info/
