@@ -26,6 +26,10 @@ THE SOFTWARE.
 
 import importlib
 import collections
+import os
+import sys
+
+from importlib.metadata import files
 
 from rplibs.six import iteritems, itervalues
 from rplibs.yaml import load_yaml_file
@@ -102,10 +106,15 @@ class PluginManager(RPObject):
     def load_base_settings(self, plugin_dir):
         """ Loads the base settings of all plugins, even of disabled plugins.
         This is required to verify all overrides. """
-        for entry in listdir(plugin_dir):
-            abspath = join(plugin_dir, entry)
-            if isdir(abspath) and entry not in ("__pycache__", "plugin_prefab"):
-                self.load_plugin_settings(entry, abspath)
+        plugins = set()
+        for i in files('render-pipeline'):
+            if len(i.parts) >= 2 and i.parts[0] == 'rpplugins':
+                entry = i.parts[1]
+                if entry not in ('__init__.py', '__pycache__', 'plugin_prefab'):
+                    plugins.add(entry)
+
+        for plugin in plugins:
+            self.load_plugin_settings(plugin, 'rpplugins/{}'.format(plugin))
 
     def load_plugin_settings(self, plugin_id, plugin_pth):
         """ Internal method to load all settings of a plugin, given its plugin
