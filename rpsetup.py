@@ -241,8 +241,7 @@ def setup(CMD_ARGS):
     if not CMD_ARGS.ci_build and not CMD_ARGS.skip_native:
         check_cmake()
         print_step("Building the native code .. (This might take a while!)")
-        exec_python_file("rpcore/native/build.py", ["--clean"] if CMD_ARGS.clean else [],
-                        troubleshoot="https://github.com/tobspr/RenderPipeline/wiki/Setup-Troubleshooting#building-the-native-code")
+        exec_python_file(CMD_ARGS, "rpnative/build.py")
 
     print_step("Generating .txo files ...")
     exec_python_file(CMD_ARGS, "rpcore/data/generate_txo_files.py",

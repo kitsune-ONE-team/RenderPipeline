@@ -63,3 +63,5 @@ rpnative/build/
 build/
 dist/
 *.egg-info/
+*.so
+*.pyd

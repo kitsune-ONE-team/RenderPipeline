@@ -1,3 +1,6 @@
+prune rpnative/build
+include rpnative/rplight.pyd
+include rpnative/rplight.so
 recursive-include config *.prc
 recursive-include config *.yaml
 recursive-include effects *.yaml
