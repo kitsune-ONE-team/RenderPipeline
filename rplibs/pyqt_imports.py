@@ -6,6 +6,9 @@ Wrapper script to import all qt classes
 
 from __future__ import print_function
 import sys
+import pkgutil
+
+from importlib.metadata import files
 
 PYQT_VERSION = 5
 
@@ -52,11 +55,10 @@ elif PYQT_VERSION == 5:
 
 
 def qt_register_fonts():
-    import os
-    this_dir = os.path.realpath(os.path.dirname(__file__))
-    font_dir = os.path.join(this_dir, "..", "data", "font")
-    for f in os.listdir(font_dir):
-        if f.endswith(".ttf"):
-            fpath = os.path.relpath(os.path.join(font_dir, f))
-            QFontDatabase.addApplicationFont(fpath)
-
+    for i in files('render-pipeline'):
+        if len(i.parts) == 4 and '/'.join(i.parts[:3]) == 'rpcore/data/font':
+            f = i.parts[3]
+            if f.endswith('.ttf'):
+                modpath = '.'.join(i.parts[:3])
+                data = pkgutil.get_data(modpath, f)
+                QFontDatabase.addApplicationFontFromData(data)
