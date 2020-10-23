@@ -26,6 +26,8 @@ THE SOFTWARE.
 
 import math
 
+from importlib.metadata import files
+
 from rplibs.six.moves import range  # pylint: disable=import-error
 from rplibs.six import iteritems, itervalues
 
@@ -129,13 +131,13 @@ class ScatteringMethodEricBruneton(ScatteringMethod):
     def create_shaders(self):
         """ Creates all the shaders used for precomputing """
         self.shaders = {}
-        resource_path = self.handle.get_shader_resource("eric_bruneton")
-        for fname in listdir(resource_path):
-            fpath = join(resource_path, fname)
-            if isfile(fpath) and fname.endswith(".compute.glsl"):
-                shader_name = fname.split(".")[0]
-                shader_obj = RPLoader.load_shader(fpath)
-                self.shaders[shader_name] = shader_obj
+        for i in files('render-pipeline'):
+            if len(i.parts) == 5 and '/'.join(i.parts[:4]) == 'rpplugins/scattering/shader/eric_bruneton':
+                fname = i.parts[4]
+                if fname.endswith('.compute.glsl'):
+                    shader_name = fname.split(".")[0]
+                    shader_obj = RPLoader.load_shader('/'.join(i.parts))
+                    self.shaders[shader_name] = shader_obj
 
     def exec_compute_shader(self, shader_obj, shader_inputs, exec_size,
                             workgroup_size=(16, 16, 1)):
