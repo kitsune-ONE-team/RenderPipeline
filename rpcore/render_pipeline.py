@@ -356,7 +356,7 @@ class RenderPipeline(RPObject):
                                    "seperate meshes, then re-export your scene. The\n"
                                    "problematic mesh is: " + geom_np.get_name())
                         continue
-                    self.set_effect(geom_np, "effects/default.yaml",
+                    self.set_effect(geom_np, "/$$rp/effects/default.yaml",
                                     {"render_forward": True, "render_gbuffer": False}, 100)
 
         return {"lights": lights, "envprobes": envprobes,
@@ -437,7 +437,7 @@ class RenderPipeline(RPObject):
         just calls set_effect with the default effect and options as parameters.
         This uses a very low sort, to make sure that overriding the default
         effect does not require a custom sort parameter to be passed. """
-        self.set_effect(Globals.render, "effects/default.yaml", {}, -10)
+        self.set_effect(Globals.render, "/$$rp/effects/default.yaml", {}, -10)
 
     def _adjust_camera_settings(self):
         """ Sets the default camera settings, this includes the cameras
@@ -599,7 +599,7 @@ class RenderPipeline(RPObject):
         skybox.set_scale(size)
         skybox.reparent_to(Globals.render)
         skybox.set_bin("unsorted", 10000)
-        self.set_effect(skybox, "effects/skybox.yaml", {
+        self.set_effect(skybox, "/$$rp/effects/skybox.yaml", {
             "render_shadow": False,
             "render_envmap": False,
             "render_voxelize": False,

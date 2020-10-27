@@ -156,8 +156,13 @@ class Effect(RPObject):
     def _convert_filename_to_name(self, filename):
         """ Constructs an effect name from a filename, this is used for writing
         out temporary files """
-        return filename.replace(".yaml", "").replace("effects/", "")\
-            .replace("/", "_").replace("\\", "_").replace(".", "-")
+        return (
+            filename
+            .replace(".yaml", "")
+            .replace("/$$rp/effects/", "")
+            .replace("/", "_")
+            .replace("\\", "_")
+            .replace(".", "-"))
 
     def _parse_content(self, parsed_yaml):
         """ Internal method to construct the effect from a yaml object """
