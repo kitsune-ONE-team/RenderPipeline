@@ -138,7 +138,7 @@ class Sprite(RPObject):
 
     def remove(self):
         """ Removes the image """
-        self.node.remove()
+        self.node.remove_node()
 
     def hide(self):
         """ Hides the image """
