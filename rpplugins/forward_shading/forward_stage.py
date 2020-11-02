@@ -56,7 +56,7 @@ class ForwardStage(RenderStage):
         self._pipeline.tag_mgr.register_camera("forward", self.forward_cam)
 
         self.target_merge = self.create_target("MergeWithDeferred")
-        self.target_merge.add_color_attachment(bits=16)
+        self.target_merge.add_color_attachment(bits=16, alpha=True)
         self.target_merge.prepare_buffer()
         self.target_merge.set_shader_inputs(
             ForwardDepth=self.target.depth_tex,

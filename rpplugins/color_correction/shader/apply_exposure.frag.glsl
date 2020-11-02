@@ -31,11 +31,11 @@
 uniform sampler2D ShadedScene;
 uniform samplerBuffer Exposure;
 
-out vec3 result;
+out vec4 result;
 
 void main() {
     ivec2 coord = ivec2(gl_FragCoord.xy);
-    vec3 scene_color = texelFetch(ShadedScene, coord, 0).xyz;
+    vec4 scene_color = texelFetch(ShadedScene, coord, 0);
 
     #if !DEBUG_MODE
         float exposure = texelFetch(Exposure, 0).x;

@@ -41,7 +41,7 @@ class ApplyLightsStage(RenderStage):
 
     def create(self):
         self.target = self.create_target("ApplyLights")
-        self.target.add_color_attachment(bits=16)
+        self.target.add_color_attachment(bits=16, alpha=True)
         self.target.prepare_buffer()
 
     def reload_shaders(self):

@@ -69,7 +69,7 @@ class AutoExposureStage(RenderStage):
 
         # Create the target which applies the generated exposure to the scene
         self.target_apply = self.create_target("ApplyExposure")
-        self.target_apply.add_color_attachment(bits=16)
+        self.target_apply.add_color_attachment(bits=16, alpha=True)
         self.target_apply.prepare_buffer()
         self.target_apply.set_shader_input("Exposure", self.tex_exposure)
 

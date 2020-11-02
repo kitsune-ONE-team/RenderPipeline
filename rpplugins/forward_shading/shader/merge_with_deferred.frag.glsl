@@ -33,17 +33,17 @@ uniform sampler2D SceneDepth;
 uniform sampler2D ForwardDepth;
 uniform sampler2D ForwardColor;
 
-out vec3 result;
+out vec4 result;
 
 void main() {
     vec2 texcoord = get_texcoord();
 
-    vec3 deferred_result = textureLod(ShadedScene, texcoord, 0).xyz;
+    vec4 deferred_result = textureLod(ShadedScene, texcoord, 0);
     vec4 forward_result = textureLod(ForwardColor, texcoord, 0);
 
     float deferred_depth = textureLod(ForwardDepth, texcoord, 0).x;
     float forward_depth = textureLod(SceneDepth, texcoord, 0).x;
-    forward_result.xyz = forward_result.xyz * forward_result.w +
-                            deferred_result * (1 - forward_result.w);
-    result = deferred_depth > forward_depth ? deferred_result : forward_result.xyz;
+    forward_result = mix(forward_result, deferred_result, forward_result.a);
+    result = deferred_depth > forward_depth ? deferred_result : forward_result;
+    result.a = deferred_result.a;
 }
