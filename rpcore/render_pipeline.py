@@ -74,6 +74,8 @@ class RenderPipeline(RPObject):
     the pipeline to form a working system. It does not do much work itself, but
     instead setups all the managers and systems to be able to do their work. """
 
+    effect_class = Effect
+
     def __init__(self):
         """ Creates a new pipeline with a given showbase instance. This should
         be done before intializing the ShowBase, the pipeline will take care of
@@ -218,11 +220,11 @@ class RenderPipeline(RPObject):
         effect will be applied to that nodepath and all nodepaths below whose
         current effect sort is less than the new effect sort (passed by the
         sort parameter). """
-        effect = Effect.load(effect_src, options)
+        effect = self.effect_class.load(effect_src, options)
         if effect is None:
             return self.error("Could not apply effect")
 
-        for i, stage in enumerate(("gbuffer", "shadow", "voxelize", "envmap", "forward")):
+        for i, stage in enumerate(self.effect_class._PASSES):
             if not effect.get_option("render_" + stage):
                 nodepath.hide(self.tag_mgr.get_mask(stage))
             else:
